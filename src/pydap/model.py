@@ -156,15 +156,6 @@ When constrained, it yields the SequenceType:
     >>> for record in cast[ cast['temperature'] < 16 ].iterdata():
     ...     print(record)
     (20.0, 15.0, 35.0, '2')
-
-As mentioned earlier, it is still possible to iterate directly over data::
-
-    >>> for record in cast[ cast['temperature'] < 16 ]:
-    ...     print(record)
-    (20.0, 15.0, 35.0, '2')
-
-But this is discouraged as this will be deprecated soon. The ``.iterdata()`` is
-therefore highly recommended.
 """
 
 import operator
@@ -641,45 +632,6 @@ class SequenceType(StructureType):
     def iterdata(self):
         for line in self.data:
             yield tuple(map(decode_np_strings, line))
-
-    def __iter__(self):
-        # This method should be removed in pydap 3.4
-        warnings.warn('Starting with pydap 3.4 '
-                      '``for val in sequence: ...`` '
-                      'will give children names. '
-                      'To iterate over data the construct '
-                      '``for val in sequence.iterdata(): ...``'
-                      'is available now and will be supported in the'
-                      'future to iterate over data.',
-                      PendingDeprecationWarning)
-        return self.iterdata()
-
-    def __len__(self):
-        # This method should be removed in pydap 3.4
-        warnings.warn('Starting with pydap 3.4, '
-                      '``len(sequence)`` will give '
-                      'the number of children and not the '
-                      'length of the data.',
-                      PendingDeprecationWarning)
-        return len(self.data)
-
-    def items(self):
-        # This method should be removed in pydap 3.4
-        for key in self._visible_keys:
-            yield (key, self[key])
-
-    def values(self):
-        # This method should be removed in pydap 3.4
-        for key in self._visible_keys:
-            yield self[key]
-
-    def keys(self):
-        # This method should be removed in pydap 3.4
-        return iter(self._visible_keys)
-
-    def __contains__(self, key):
-        # This method should be removed in pydap 3.4
-        return (key in self._visible_keys)
 
     def __getitem__(self, key):
         # If key is a string, return child with the corresponding data.

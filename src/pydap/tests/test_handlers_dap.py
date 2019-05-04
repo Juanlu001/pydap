@@ -375,7 +375,7 @@ class TestSequenceProxy(unittest.TestCase):
         child = self.remote[["float", "int"]]
         print(child)
         self.assertEqual(child.id, "sequence.float,sequence.int")
-        self.assertEqual(list(child.template.keys()), ["float", "int"])
+        self.assertEqual(list(child.template.keys()), ["int", "float"])
 
         child = self.remote[0]
         self.assertEqual(child.slice, (slice(0, 1, 1),))

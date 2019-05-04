@@ -37,7 +37,7 @@ def test_open(simple_data, simple_data_file):
     dtype = [('index', '<i4'),
              ('temperature', '<f8'),
              ('site', 'S40')]
-    retrieved_data = [line for line in seq]
+    retrieved_data = [line for line in seq.iterdata()]
 
     np.testing.assert_array_equal(np.array(retrieved_data, dtype=dtype),
                                   np.array(simple_data, dtype=dtype))
@@ -48,7 +48,7 @@ def test_combined_slice(simple_data, simple_data_file):
     dataset = CSVHandler(simple_data_file).dataset
     seq = dataset['sequence']
     retrieved_data = [line for line
-                      in seq[['temperature', 'site']][seq['index'] > 10]]
+                      in seq[['temperature', 'site']][seq['index'] > 10].iterdata()]
 
     dtype = [('temperature', '<f8'),
              ('site', 'S40')]

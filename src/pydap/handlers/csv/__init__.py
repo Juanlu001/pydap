@@ -40,7 +40,7 @@ class CSVHandler(BaseHandler):
 
         >>> seq = CSVHandler(str(temp_file)).dataset['sequence']
 
-        >>> for line in seq:
+        >>> for line in seq.iterdata():
         ...     print(line)
         (10.0, 15.2, 'Diamond_St')
         (11.0, 13.1, 'Blacktail_Loop')
@@ -49,7 +49,7 @@ class CSVHandler(BaseHandler):
 
     The order of the variables can be changed:
 
-        >>> for line in seq['temperature', 'site', 'index']:
+        >>> for line in seq['temperature', 'site', 'index'].iterdata():
         ...     print(line)
         (15.2, 'Diamond_St', 10.0)
         (13.1, 'Blacktail_Loop', 11.0)
@@ -67,7 +67,7 @@ class CSVHandler(BaseHandler):
 
     We can filter the data:
 
-        >>> for line in seq[ seq.index > 10 ]:
+        >>> for line in seq[ seq.index > 10 ].iterdata():
         ...     print(line)
         (11.0, 13.1, 'Blacktail_Loop')
         (12.0, 13.3, 'Platinum_St')
@@ -79,7 +79,7 @@ class CSVHandler(BaseHandler):
         Platinum_St
         Kodiak_Trail
 
-        >>> for line in seq[['site', 'temperature']][ seq.index > 10 ]:
+        >>> for line in seq[['site', 'temperature']][ seq.index > 10 ].iterdata():
         ...     print(line)
         ('Blacktail_Loop', 13.1)
         ('Platinum_St', 13.3)
@@ -87,7 +87,7 @@ class CSVHandler(BaseHandler):
 
     Or slice it:
 
-        >>> for line in seq[::2]:
+        >>> for line in seq[::2].iterdata():
         ...     print(line)
         (10.0, 15.2, 'Diamond_St')
         (12.0, 13.3, 'Platinum_St')
@@ -175,7 +175,7 @@ class CSVData(IterData):
         >>> seq['site'] = BaseType('site')
         >>> seq.data = CSVData(str(temp_file), copy.copy(seq))
 
-        >>> for line in seq:
+        >>> for line in seq.iterdata():
         ...     print(line)
         (10.0, 15.2, 'Diamond_St')
         (11.0, 13.1, 'Blacktail_Loop')
@@ -184,7 +184,7 @@ class CSVData(IterData):
 
     The order of the variables can be changed:
 
-        >>> for line in seq['temperature', 'site', 'index']:
+        >>> for line in seq['temperature', 'site', 'index'].iterdata():
         ...     print(line)
         (15.2, 'Diamond_St', 10.0)
         (13.1, 'Blacktail_Loop', 11.0)
@@ -202,19 +202,19 @@ class CSVData(IterData):
 
     We can filter the data:
 
-        >>> for line in seq[ seq.index > 10 ]:
+        >>> for line in seq[ seq.index > 10 ].iterdata():
         ...     print(line)
         (11.0, 13.1, 'Blacktail_Loop')
         (12.0, 13.3, 'Platinum_St')
         (13.0, 12.1, 'Kodiak_Trail')
 
-        >>> for line in seq[ seq.index > 10 ]['site']:
+        >>> for line in seq[ seq.index > 10 ]['site'].iterdata():
         ...     print(line)
         Blacktail_Loop
         Platinum_St
         Kodiak_Trail
 
-        >>> for line in seq['site', 'temperature'][ seq.index > 10 ]:
+        >>> for line in seq['site', 'temperature'][ seq.index > 10 ].iterdata():
         ...     print(line)
         ('Blacktail_Loop', 13.1)
         ('Platinum_St', 13.3)
@@ -222,7 +222,7 @@ class CSVData(IterData):
 
     Or slice it:
 
-        >>> for line in seq[::2]:
+        >>> for line in seq[::2].iterdata():
         ...     print(line)
         (10.0, 15.2, 'Diamond_St')
         (12.0, 13.3, 'Platinum_St')

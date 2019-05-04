@@ -49,7 +49,7 @@ def test_open(sequence_type_data):
     with LocalTestServer(BaseHandler(TestDataset)) as server:
         dataset = open_url(server.url)
         seq = dataset['sequence']
-        retrieved_data = [line for line in seq]
+        retrieved_data = [line for line in seq.iterdata()]
 
     np.testing.assert_array_equal(np.array(
                                     retrieved_data,

@@ -280,18 +280,6 @@ We can also iterate over the ``SequenceType``. In this case, it will return a se
     (2, 20)
     (3, 30)
 
-Prior to pydap 3.2.2, this approach was not possible and one had to iterate directly over ``SequenceType``: 
-
-.. doctest::
-
-    >>> for record in s:
-    ...     print(record)
-    (1, 10)
-    (2, 20)
-    (3, 30)
-
-This approach will be deprecated in pydap 3.4.
-
 The ``SequenceType`` behaves pretty much like `record arrays <http://docs.scipy.org/doc/numpy/user/basics.rec.html>`_ from 
 Numpy, since we can reference them by column (``s['a']``) or by index:
 
